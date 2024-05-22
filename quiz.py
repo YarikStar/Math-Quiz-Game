@@ -17,7 +17,6 @@ if asking in N:
 elif asking in Y:
     print("Ok, let's introduce you to the math quiz game.")
 else:
-    print("???")
     exit()
 
 # Introduce the game
@@ -33,7 +32,7 @@ time.sleep(2)
 # Ask the player how many questions they want to answer
 question_amount = int(input("How many questions would you like to answer?: "))
 # Ask them Which mode they want to play
-mode = str(input("What mode do you want to play?: Multiplication, Division, Subtraction, Addition. (write which one you want to play): "))
+mode = str(input("What mode do you want to play?: Multiplication(x), Division(/), Subtraction(-), Addition(+). (write which one you want to play): "))
 
 # Give them a countdown
 print(f"OK {name}, ready? Let's go!")
@@ -66,9 +65,8 @@ def question_multiply():
     for i in range(question_amount):
         question_time1 = random.randint(1, 10)
         question_time2 = random.randint(1, 10)
-        answer_multiply = question_time1 * question_time2
+        answer = question_time1 * question_time2
         print(f"What is {question_time1} times {question_time2}: ")
-        countdown_timer(10)
         player_answer = input()
         if player_answer.isdigit() and int(player_answer) == answer:
             print("Correct!")
@@ -83,9 +81,8 @@ def question_addition():
     for i in range(question_amount):
         question_time1 = random.randint(1, 30)
         question_time2 = random.randint(1, 30)
-        answer_multiply = question_time1 + question_time2
+        answer = question_time1 + question_time2
         print(f"What is {question_time1} plus {question_time2}: ")
-        countdown_timer(10)
         player_answer = input()
         if player_answer.isdigit() and int(player_answer) == answer:
             print("Correct!")
@@ -102,7 +99,6 @@ def question_division():
         question_time2 = random.randint(1, 100)
         answer_division = question_time1 / question_time2
         print(f"What is {question_time1} divided by {question_time2}: ")
-        countdown_timer(10)
         player_answer = input()
         if player_answer.isdigit() and int(player_answer) == answer:
             print("Correct!")
@@ -119,7 +115,6 @@ def question_subtraction():
         question_time2 = random.randint(1, 30)
         answer_multiply = question_time1 - question_time2
         print(f"What is {question_time1} take away {question_time2}: ")
-        countdown_timer(10)
         player_answer = input()
         if player_answer.isdigit() and int(player_answer) == answer:
             print("Correct!")
