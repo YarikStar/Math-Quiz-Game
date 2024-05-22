@@ -31,8 +31,6 @@ def show_introduction():
     time.sleep(2)
     print("In this math quiz, you will be asked questions, and you have to answer them correctly to get a high score.")
     time.sleep(2)
-    print("There isn't a time limit for each question. But the game will end if you don't answer the questions correctly.")
-    time.sleep(2)
 
 # Function to ask how many questions the player wants to answer
 def ask_number_of_questions():
