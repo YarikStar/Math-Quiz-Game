@@ -30,7 +30,7 @@ You have to answer each question in 10 seconds or the game will end.''')
 time.sleep(2)
 
 # Ask the player how many questions they want to answer
-question_amount = int(input("How many questions would you like to answer?: "))
+question_amount = int(input("How many questions would you like to answer?(Max 20): "))
 # Ask them Which mode they want to play
 mode = str(input("What mode do you want to play?: Multiplication(x), Division(/), Subtraction(-), Addition(+). (write which one you want to play): "))
 
