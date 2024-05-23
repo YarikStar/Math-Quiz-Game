@@ -71,97 +71,77 @@ def get_range_by_difficulty(difficulty):
     else:
         return 1, 50
 
-# Function to validate if the answer is numeric
-def validate_answer(player_answer):
-    if player_answer.isdigit():
-        return int(player_answer)
-    else:
-        print("Invalid input. Please enter a numeric answer.")
-        return None
-
 # Function to ask multiplication questions
 def question_multiply(question_amount, range_min, range_max):
     correct_answers = 0
-    incorrect_answers = 0
+    question_history = []
     for _ in range(question_amount):
         question_time1 = random.randint(range_min, range_max)
         question_time2 = random.randint(range_min, range_max)
         answer = question_time1 * question_time2
-        while True:
-            player_answer = input(f"What is {question_time1} times {question_time2}: ")
-            validated_answer = validate_answer(player_answer)
-            if validated_answer is not None:
-                if validated_answer == answer:
-                    print("Correct!")
-                    correct_answers += 1
-                else:
-                    print("Incorrect!")
-                    incorrect_answers += 1
-                break
-    return correct_answers, incorrect_answers
+        player_answer = int(input(f"What is {question_time1} times {question_time2}: "))
+        if player_answer == answer:
+            print("Correct!")
+            correct_answers += 1
+            question_history.append((f"{question_time1} * {question_time2}", player_answer, "Correct", answer))
+        else:
+            print(f"Incorrect! The correct answer is {answer}.")
+            question_history.append((f"{question_time1} * {question_time2}", player_answer, "Incorrect", answer))
+    return correct_answers, question_history
 
 # Function to ask addition questions
 def question_addition(question_amount, range_min, range_max):
     correct_answers = 0
-    incorrect_answers = 0
+    question_history = []
     for _ in range(question_amount):
         question_time1 = random.randint(range_min, range_max)
         question_time2 = random.randint(range_min, range_max)
         answer = question_time1 + question_time2
-        while True:
-            player_answer = input(f"What is {question_time1} plus {question_time2}: ")
-            validated_answer = validate_answer(player_answer)
-            if validated_answer is not None:
-                if validated_answer == answer:
-                    print("Correct!")
-                    correct_answers += 1
-                else:
-                    print("Incorrect!")
-                    incorrect_answers += 1
-                break
-    return correct_answers, incorrect_answers
+        player_answer = int(input(f"What is {question_time1} plus {question_time2}: "))
+        if player_answer == answer:
+            print("Correct!")
+            correct_answers += 1
+            question_history.append((f"{question_time1} + {question_time2}", player_answer, "Correct", answer))
+        else:
+            print(f"Incorrect! The correct answer is {answer}.")
+            question_history.append((f"{question_time1} + {question_time2}", player_answer, "Incorrect", answer))
+    return correct_answers, question_history
 
 # Function to ask division questions
 def question_division(question_amount, range_min, range_max):
     correct_answers = 0
-    incorrect_answers = 0
+    question_history = []
     for _ in range(question_amount):
         question_time2 = random.randint(1, range_max)
         answer = random.randint(1, range_max)
         question_time1 = answer * question_time2
-        while True:
-            player_answer = input(f"What is {question_time1} divided by {question_time2}: ")
-            validated_answer = validate_answer(player_answer)
-            if validated_answer is not None:
-                if validated_answer == answer:
-                    print("Correct!")
-                    correct_answers += 1
-                else:
-                    print("Incorrect!")
-                    incorrect_answers += 1
-                break
-    return correct_answers, incorrect_answers
+        player_answer = int(input(f"What is {question_time1} divided by {question_time2}: "))
+        if player_answer == answer:
+            print("Correct!")
+            correct_answers += 1
+            question_history.append((f"{question_time1} / {question_time2}", player_answer, "Correct", answer))
+        else:
+            print(f"Incorrect! The correct answer is {answer}.")
+            question_history.append((f"{question_time1} / {question_time2}", player_answer, "Incorrect", answer))
+    return correct_answers, question_history
 
 # Function to ask subtraction questions
 def question_subtraction(question_amount, range_min, range_max):
     correct_answers = 0
-    incorrect_answers = 0
+    question_history = []
     for _ in range(question_amount):
         question_time1 = random.randint(range_min, range_max)
         question_time2 = random.randint(range_min, range_max)
         answer = question_time1 - question_time2
-        while True:
-            player_answer = input(f"What is {question_time1} take away {question_time2}: ")
-            validated_answer = validate_answer(player_answer)
-            if validated_answer is not None:
-                if validated_answer == answer:
-                    print("Correct!")
-                    correct_answers += 1
-                else:
-                    print("Incorrect!")
-                    incorrect_answers += 1
-                break
-    return correct_answers, incorrect_answers
+        player_answer = int(input(f"What is {question_time1} take away {question_time2}: "))
+        if player_answer == answer:
+            print("Correct!")
+            correct_answers += 1
+            question_history.append((f"{question_time1} - {question_time2}", player_answer, "Correct", answer))
+        else:
+            print(f"Incorrect! The correct answer is {answer}.")
+            question_history.append((f"{question_time1} - {question_time2}", player_answer, "Incorrect", answer))
+    return correct_answers, question_history
 
 # Function to save the score to a file
 def save_score(name, score, question_amount, mode, difficulty):
@@ -224,27 +204,41 @@ def main():
 
         # Ask the questions based on the selected mode
         if mode == "x":
-            correct_answers, incorrect_answers = question_multiply(question_amount, range_min, range_max)
+            correct_answers, question_history = question_multiply(question_amount, range_min, range_max)
         elif mode == "/":
-            correct_answers, incorrect_answers = question_division(question_amount, range_min, range_max)
+            correct_answers, question_history = question_division(question_amount, range_min, range_max)
         elif mode == "+":
-            correct_answers, incorrect_answers = question_addition(question_amount, range_min, range_max)
+            correct_answers, question_history = question_addition(question_amount, range_min, range_max)
         elif mode == "-":
-            correct_answers, incorrect_answers = question_subtraction(question_amount, range_min, range_max)
+            correct_answers, question_history = question_subtraction(question_amount, range_min, range_max)
+
+        # Display question history
+        while True:
+            history_answer = input("Would you like your history? (Y/N): ").strip()
+            if history_answer in Y:
+                print("Here is a history of your questions:")
+                for question, answer, result, correct_answer in question_history:
+                    print(f"Question: {question}, Your Answer: {answer}, Result: {result}, Correct Answer: {correct_answer}")
+                break
+            elif history_answer in N:
+                break
+            else:
+                print("Please input a valid answer")
 
         # Ask if the player wants their score and save it
         while True:
             asking_score = input('Would you like your score? (Y/N): ').strip()
             if asking_score in Y:
-                score_message = f"Your score: {correct_answers}/{question_amount}"
+                score_percentage = (correct_answers / question_amount) * 100
+                score_message = f"Your score: {correct_answers}/{question_amount} ({score_percentage:.2f}%)"
                 print(score_message)
                 save_score(name, correct_answers, question_amount, mode, difficulty)
                 break
             elif asking_score in N:
-                print("Ok thanks for playing the game (:")
+                print("Ok, thanks for playing the game :)")
                 break
             else:
-                print("Do you want your score? yes or no: ")
+                print("Do you want your score? Yes or No: ")
 
         # Ask if the player wants to play again
         if not ask_to_play_game():
