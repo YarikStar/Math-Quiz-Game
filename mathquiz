@@ -212,6 +212,12 @@ def main():
         elif mode == "-":
             correct_answers, question_history = question_subtraction(question_amount, range_min, range_max)
 
+        # Showing their score
+        score_percentage = (correct_answers / question_amount) * 100
+        score_message = f"Your score: {correct_answers}/{question_amount} ({score_percentage:.2f}%)"
+        print(score_message)
+        save_score(name, correct_answers, question_amount, mode, difficulty)
+
         # Display question history
         while True:
             history_answer = input("Would you like your history? (Y/N): ").strip()
@@ -224,21 +230,6 @@ def main():
                 break
             else:
                 print("Please input a valid answer")
-
-        # Ask if the player wants their score and save it
-        while True:
-            asking_score = input('Would you like your score? (Y/N): ').strip()
-            if asking_score in Y:
-                score_percentage = (correct_answers / question_amount) * 100
-                score_message = f"Your score: {correct_answers}/{question_amount} ({score_percentage:.2f}%)"
-                print(score_message)
-                save_score(name, correct_answers, question_amount, mode, difficulty)
-                break
-            elif asking_score in N:
-                print("Ok, thanks for playing the game :)")
-                break
-            else:
-                print("Do you want your score? Yes or No: ")
 
         # Ask if the player wants to play again
         if not ask_to_play_game():
