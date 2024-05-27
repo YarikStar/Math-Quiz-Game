@@ -83,7 +83,7 @@ def question_multiply(question_amount, range_min, range_max):
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} * {question_time2}", player_answer, "Correct", answer))
+            question_history.append((f"{question_time1} * {question_time2}", player_answer, "Correct"))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} * {question_time2}", player_answer, "Incorrect", answer))
@@ -101,7 +101,7 @@ def question_addition(question_amount, range_min, range_max):
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} + {question_time2}", player_answer, "Correct", answer))
+            question_history.append((f"{question_time1} + {question_time2}", player_answer, "Correct"))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} + {question_time2}", player_answer, "Incorrect", answer))
@@ -119,7 +119,7 @@ def question_division(question_amount, range_min, range_max):
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} / {question_time2}", player_answer, "Correct", answer))
+            question_history.append((f"{question_time1} / {question_time2}", player_answer, "Correct"))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} / {question_time2}", player_answer, "Incorrect", answer))
@@ -137,7 +137,7 @@ def question_subtraction(question_amount, range_min, range_max):
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} - {question_time2}", player_answer, "Correct", answer))
+            question_history.append((f"{question_time1} - {question_time2}", player_answer, "Correct"))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} - {question_time2}", player_answer, "Incorrect", answer))
@@ -223,8 +223,11 @@ def main():
             history_answer = input("Would you like your history? (Y/N): ").strip()
             if history_answer in Y:
                 print("Here is a history of your questions:")
-                for question, answer, result, correct_answer in question_history:
-                    print(f"Question: {question}, Your Answer: {answer}, Result: {result}, Correct Answer: {correct_answer}")
+                for question, answer, result, *correct_answer in question_history:
+                    if result == "Correct":
+                        print(f"Question: {question}, Your Answer: {answer}, Result: {result}")
+                    else:
+                        print(f"Question: {question}, Your Answer: {answer}, Result: {result}, Correct Answer: {correct_answer[0]}")
                 break
             elif history_answer in N:
                 break
