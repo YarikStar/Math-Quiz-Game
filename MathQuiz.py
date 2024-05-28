@@ -9,10 +9,10 @@ Y = ["Yes", "yes", "Y", "y"]
 def ask_name():
     while True:
         name = input("What is your name?: ")
-        if name.strip():  # Ensure the name is not empty
+        if name.isalpha():  # Ensure the name contains only letters
             return name
         else:
-            print("Name cannot be empty. Please enter your name.")
+            print("Name can only contain letters and Name can not be empty. Please enter your name.")
 
 # Function to ask if the player wants to play the game
 def ask_to_play_game():
@@ -79,11 +79,16 @@ def question_multiply(question_amount, range_min, range_max):
         question_time1 = random.randint(range_min, range_max)
         question_time2 = random.randint(range_min, range_max)
         answer = question_time1 * question_time2
-        player_answer = int(input(f"What is {question_time1} times {question_time2}: "))
+        while True:
+            try:
+                player_answer = int(input(f"What is {question_time1} times {question_time2}: "))
+                break
+            except ValueError:
+                print("Invalid input. Please enter a number.")
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} * {question_time2}", player_answer, "Correct"))
+            question_history.append((f"{question_time1} * {question_time2}", player_answer, "Correct", answer))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} * {question_time2}", player_answer, "Incorrect", answer))
@@ -97,11 +102,16 @@ def question_addition(question_amount, range_min, range_max):
         question_time1 = random.randint(range_min, range_max)
         question_time2 = random.randint(range_min, range_max)
         answer = question_time1 + question_time2
-        player_answer = int(input(f"What is {question_time1} plus {question_time2}: "))
+        while True:
+            try:
+                player_answer = int(input(f"What is {question_time1} plus {question_time2}: "))
+                break
+            except ValueError:
+                print("Invalid input. Please enter a number.")
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} + {question_time2}", player_answer, "Correct"))
+            question_history.append((f"{question_time1} + {question_time2}", player_answer, "Correct", answer))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} + {question_time2}", player_answer, "Incorrect", answer))
@@ -115,11 +125,16 @@ def question_division(question_amount, range_min, range_max):
         question_time2 = random.randint(1, range_max)
         answer = random.randint(1, range_max)
         question_time1 = answer * question_time2
-        player_answer = int(input(f"What is {question_time1} divided by {question_time2}: "))
+        while True:
+            try:
+                player_answer = int(input(f"What is {question_time1} divided by {question_time2}: "))
+                break
+            except ValueError:
+                print("Invalid input. Please enter a number.")
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} / {question_time2}", player_answer, "Correct"))
+            question_history.append((f"{question_time1} / {question_time2}", player_answer, "Correct", answer))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} / {question_time2}", player_answer, "Incorrect", answer))
@@ -133,11 +148,16 @@ def question_subtraction(question_amount, range_min, range_max):
         question_time1 = random.randint(range_min, range_max)
         question_time2 = random.randint(range_min, range_max)
         answer = question_time1 - question_time2
-        player_answer = int(input(f"What is {question_time1} take away {question_time2}: "))
+        while True:
+            try:
+                player_answer = int(input(f"What is {question_time1} take away {question_time2}: "))
+                break
+            except ValueError:
+                print("Invalid input. Please enter a number.")
         if player_answer == answer:
             print("Correct!")
             correct_answers += 1
-            question_history.append((f"{question_time1} - {question_time2}", player_answer, "Correct"))
+            question_history.append((f"{question_time1} - {question_time2}", player_answer, "Correct", answer))
         else:
             print(f"Incorrect! The correct answer is {answer}.")
             question_history.append((f"{question_time1} - {question_time2}", player_answer, "Incorrect", answer))
@@ -223,11 +243,8 @@ def main():
             history_answer = input("Would you like your history? (Y/N): ").strip()
             if history_answer in Y:
                 print("Here is a history of your questions:")
-                for question, answer, result, *correct_answer in question_history:
-                    if result == "Correct":
-                        print(f"Question: {question}, Your Answer: {answer}, Result: {result}")
-                    else:
-                        print(f"Question: {question}, Your Answer: {answer}, Result: {result}, Correct Answer: {correct_answer[0]}")
+                for question, answer, result, correct_answer in question_history:
+                    print(f"Question: {question}, Your Answer: {answer}, Result: {result}, Correct Answer: {correct_answer}")
                 break
             elif history_answer in N:
                 break
